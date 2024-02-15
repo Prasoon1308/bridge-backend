@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model L1Transaction {
+  id               Int      @id @default(autoincrement())
+  rootTokenAddress String // Address of the root token
+  fromAddress      String // User's address
+  amount           BigInt // Transaction amount
+  nonce            Int // Nonce for the transaction
+  eventType        String // "Deposit" or "Withdraw"
+  timestamp        DateTime @default(now())
+  l1Hash           String? @unique
+  l2Hash           String?
+}
+
+model L2Transaction {
+  id                Int      @id @default(autoincrement())
+  childTokenAddress String // Address of the child token
+  fromAddress       String // User's address
+  amount            BigInt // Transaction amount
+  nonce             Int // Nonce for the transaction
+  eventType         String // "Deposit" or "Withdraw"
+  timestamp         DateTime @default(now())
+  l1Hash            String?
+  l2Hash            String? @unique
+}
