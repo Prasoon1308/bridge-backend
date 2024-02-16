@@ -40,7 +40,7 @@ const generateSignatureL1 = async (
   const adminWalletL1 = new ethers.Wallet(`0x${PRIVATE_KEY}`).connect(
     L1Provider
   );
-  console.log("wallet---", adminWalletL1.address);
+//   console.log("wallet---", adminWalletL1.address);
 
   const WITHDRAW_TYPEHASH = await ethers.keccak256(
     ethers.solidityPacked(
@@ -50,7 +50,7 @@ const generateSignatureL1 = async (
       ]
     )
   );
-  console.log("WITHDRAW_TYPEHASH---:", WITHDRAW_TYPEHASH);
+//   console.log("WITHDRAW_TYPEHASH---:", WITHDRAW_TYPEHASH);
 
   const abiCoder = new ethers.AbiCoder();
   const data = await abiCoder.encode(
@@ -66,7 +66,7 @@ const generateSignatureL1 = async (
   console.log("data---", data);
 
   const dataHash = await ethers.keccak256(data);
-  console.log("structHash---", dataHash);
+//   console.log("structHash---", dataHash);
 
   const signature = await adminWalletL1.signTypedData(domainL1, types, value);
   console.log("signature---", signature);
@@ -106,7 +106,7 @@ const generateSignatureL2 = async (
   const adminWalletL2 = new ethers.Wallet(`0x${PRIVATE_KEY}`).connect(
     L2Provider
   );
-  console.log("wallet---", adminWalletL2.address);
+//   console.log("wallet---", adminWalletL2.address);
 
   const MINT_TYPEHASH = await ethers.keccak256(
     ethers.solidityPacked(
@@ -116,7 +116,7 @@ const generateSignatureL2 = async (
       ]
     )
   );
-  console.log("MINT_TYPEHASH---------:", MINT_TYPEHASH);
+//   console.log("MINT_TYPEHASH---------:", MINT_TYPEHASH);
 
   const abiCoder = new ethers.AbiCoder();
   const data = await abiCoder.encode(
@@ -132,7 +132,7 @@ const generateSignatureL2 = async (
   console.log("data---", data);
 
   const dataHash = await ethers.keccak256(data);
-  console.log("structHash---", dataHash);
+//   console.log("structHash---", dataHash);
 
   const signature = await adminWalletL2.signTypedData(domainL2, types, value);
   console.log("signature---", signature);
