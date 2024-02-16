@@ -48,6 +48,7 @@ console.log("starting");
 
 const filter1 = bridgeFactoryV3.filters.DepositLog; // Deposit on L1
 const filter2 = bridgeFactoryV3.filters.WithdrawLog; // Withdraw on L1
+const filter3 = bridgeDeployerV3.filters.bridgeDeployedLog; // Bridge Deployed on L2
 const filter4 = bridgeDeployerV3.filters.mintLog; // Mint on L2
 const filter5 = bridgeDeployerV3.filters.burnLog; // Burn on L2
 
@@ -190,5 +191,38 @@ const burnOnL2 = async () => {
   }
 };
 
+const deployNewBridge = async() => {
+    try {
+        bridgeDeployerV3.on(
+          filter3,
+          async (rootTokenAddress, childTokenAddress, event) => {
+            console.log("New Bridge Deployed on L2");
+            console.log(
+              "RootToken Address:",
+              rootTokenAddress,
+              "ChildToken Address: ",
+              childTokenAddress
+            );
+            const tx = await bridgeFactoryV3
+              .connect(adminWalletL1)
+              .setBridge(rootTokenAddress, childTokenAddress);
+            receipt = await tx.wait();
+          //   console.log(receipt);
+            console.log("Bridge connected on L1");
+            console.log(
+              "RootToken Address:",
+              rootTokenAddress,
+              "ChildToken Address: ",
+              childTokenAddress
+            );
+          }
+        );
+      } catch (error) {
+        console.log("Error while connecting bridge on L1!");
+        console.log(error);
+      }
+      
+}
 depositOnL1();
 burnOnL2();
+deployNewBridge();
