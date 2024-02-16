@@ -65,6 +65,37 @@
 			{
 				"indexed": true,
 				"internalType": "address",
+				"name": "rootTokenAddress",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "nonce",
+				"type": "uint256"
+			}
+		],
+		"name": "DepositLog",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
 				"name": "previousOwner",
 				"type": "address"
 			},
@@ -90,56 +121,6 @@
 			{
 				"indexed": true,
 				"internalType": "address",
-				"name": "childTokenAddress",
-				"type": "address"
-			}
-		],
-		"name": "bridgeDeployedLog",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "childTokenAddress",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "nonce",
-				"type": "uint256"
-			}
-		],
-		"name": "burnLog",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "childTokenAddress",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
 				"name": "to",
 				"type": "address"
 			},
@@ -156,32 +137,14 @@
 				"type": "uint256"
 			}
 		],
-		"name": "mintLog",
+		"name": "WithdrawLog",
 		"type": "event"
 	},
 	{
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "_childToken",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_amount",
-				"type": "uint256"
-			}
-		],
-		"name": "burnOnL2",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_childToken",
+				"name": "_rootToken",
 				"type": "address"
 			}
 		],
@@ -218,17 +181,17 @@
 	{
 		"inputs": [
 			{
-				"internalType": "bytes",
-				"name": "_data",
-				"type": "bytes"
+				"internalType": "address",
+				"name": "_rootToken",
+				"type": "address"
 			},
 			{
-				"internalType": "bytes",
-				"name": "_signature",
-				"type": "bytes"
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
 			}
 		],
-		"name": "mintOnL2",
+		"name": "depositOnL1",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -295,6 +258,24 @@
 		"inputs": [
 			{
 				"internalType": "address",
+				"name": "_rootToken",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_childToken",
+				"type": "address"
+			}
+		],
+		"name": "setBridge",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
 				"name": "newOwner",
 				"type": "address"
 			}
@@ -320,6 +301,24 @@
 	{
 		"inputs": [],
 		"name": "withdrawFees",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes",
+				"name": "_data",
+				"type": "bytes"
+			},
+			{
+				"internalType": "bytes",
+				"name": "_signature",
+				"type": "bytes"
+			}
+		],
+		"name": "withdrawOnL1",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
